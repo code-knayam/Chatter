@@ -23,11 +23,18 @@
     });
     socket.on('connect', function(){
       nickname = prompt('your nickname');
-      insertBroadcast(nickname);
+      insertBroadcast(nickname, " Connected");
       socket.emit('join', nickname);
     });
     socket.on('join', function(nickname){
-      insertBroadcast(nickname);
+      insertBroadcast(nickname, " Connected");
+      updateChatterList(nickname);
+    });
+    socket.on('add_chatters', function(nickname){
+      updateChatterList(nickname);
+    });
+    socket.on('remove_chatter', function(nickname){
+      insertBroadcast(nickname, " Disconnected");
     })
     function sendMessage(message){
       socket.emit('messages', message);
@@ -56,12 +63,10 @@
 
             <div class="message_recepients">
               <ul class="recepients_list">
-                <li class="recepient">
-                  member 1
+                <!--<li>
+                  User come here
                 </li>
-                <li class="recepient">
-                  Member 2
-                </li>
+              -->
               </ul>
             </div>
 

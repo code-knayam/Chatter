@@ -41,21 +41,23 @@
   background-color: rgba(205, 204, 10, 0.4);
   overflow-x: scroll;
 }
-.jumbotron .section .message {
-  text-align: left;
+.jumbotron .section .message_container .message {
   min-height: 30px;
-  line-height: 20px;
-  max-width: 60%;
+  line-height: 30px;
   padding: 2px 30px;
   margin: 5px 20px;
   overflow: scroll;
-  background: rgba(160, 160, 160, 0.3);
 }
-.jumbotron .section .message.send {
-  float: right;
+.jumbotron .section .message_container .send_message {
+  text-align: right;
 }
-.jumbotron .section .message.received {
-  float: left;
+.jumbotron .section .message_container .received_message {
+  text-align: left;
+}
+.jumbotron .section .message_container .message_cloud {
+  padding: 5px 10px;
+  background: rgba(300,100,100,0.8);
+  border-radius: 20px;
 }
 .jumbotron .section .message .message_sender{
   font-size: 12px;
