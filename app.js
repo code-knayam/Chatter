@@ -6,16 +6,16 @@ var server = require('http').createServer(app);
 var redisClient = redis.createClient();
 var io = require('socket.io')(server);
 
+
+
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 io.on('connection', function(client){
 
-  console.log('Client connected');
+  console.log('Client connected' );
 
   client.on('join', function(name){
-    client.nickname = name;
+    client.nickname = name ;
     redisClient.sadd("chattersList", name);
     client.broadcast.emit('join', name);
 
@@ -41,6 +41,7 @@ io.on('connection', function(client){
     client.emit('messages', {name:nickname, message: data});
     storeMessage(nickname, data);
   });
+
   client.on('disconnect', function(name){
     if(name !== "" && name !== null){
       client.broadcast.emit('remove_chatter', client.nickname);
@@ -48,8 +49,6 @@ io.on('connection', function(client){
     }
   });
 });
-
-
 
 app.get('/public', function(req, res){
   res.sendFile(__dirname + '/index.html');

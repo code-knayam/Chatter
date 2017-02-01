@@ -9,8 +9,23 @@ $(document).ready( function(){
 
   });
 
-});
+  $('.recepient').click(function(){
+    var activeRecepient = $('.active_recepient');
+    $(this).addClass('active_recepient').removeClass('inactive_recepient');
+    var content = $(this).text();
+    $('.message_container').append(content);
+    $('.recepient:contains("go bye")').fadeOut(600).css({
+      'transform' : 'scale(0)',
+      'transition' : '.6s ease-in-out'
+    });
+    activeRecepient.removeClass('active_recepient').addClass('inactive_recepient');
+  });
 
+  $('.recepients_list li').click(function(){
+    $(this).fadeOut(100);
+  });
+
+});
 
 function insertMessage(name, message){
   $('.last_message').removeClass('last_message');
@@ -40,10 +55,15 @@ function bringToTop() {
 		$('.message_container').animate({scrollTop: $('.last_message').offset().top },100);
 	}
 
-  function updateChatterList(data){
-    if(data !== nickname){
-      $('.recepients_list').append('<li>'+ data + '</li>');
-    }
+function updateChatterList(data){
+  if(data !== nickname){
+    $('.recepients_list').append('<li class="recepient inactive_recepient">'+ data + '</li>');
   }
+}
 
- 
+function deleteChatter(name) {
+  $('.recepient:contains(name)').fadeOut(600).css({
+    'transform' : 'scale(0)',
+    'transition' : '.6s ease-in-out'
+  });
+}
