@@ -16,10 +16,10 @@ io.on('connection', function(client){
 
   client.on('join', function(name){
     client.nickname = name ;
-    redisClient.sadd("chattersList", name);
+    redisClient.sadd("chatterList", name);
     client.broadcast.emit('join', name);
 
-    redisClient.smembers('chattersList', function(err, names){
+    redisClient.smembers('chatterList', function(err, names){
       names.forEach(function(name){
         client.emit('add_chatters', name);
       });
@@ -45,7 +45,7 @@ io.on('connection', function(client){
   client.on('disconnect', function(name){
     if(name !== "" && name !== null){
       client.broadcast.emit('remove_chatter', client.nickname);
-      redisClient.srem('chattersList', client.nickname);
+      redisClient.srem('chatterList', client.nickname);
     }
   });
 });
